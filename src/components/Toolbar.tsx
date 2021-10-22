@@ -8,11 +8,17 @@ type ToolbarProps = {
 // Componente
 const Toolbar = ({ BloqueActual, setBlocks, Blocks }: ToolbarProps) => {
   // Esta función permite actualizar bloques
-  const actualizarBloque = (id: number, propiedad: string, cambio: string) => {
+  const actualizarBloqueClassName = (
+    id: number,
+    propiedad: string,
+    cambio: string
+  ) => {
     // Obtenemos el bloque
     let nuevoBloque = Blocks[id];
 
     if (propiedad === "className") {
+      console.log(nuevoBloque);
+
       // Se guarda la clase que ya se tiene
       let nuevoClassName = nuevoBloque.ref.current.className;
 
@@ -30,6 +36,19 @@ const Toolbar = ({ BloqueActual, setBlocks, Blocks }: ToolbarProps) => {
     );
   };
 
+  const ActualizarBloqueEtiqueta = (id: number, tag: string) => {
+    // Obtenemos el bloque
+    let nuevoBloque = Blocks[id];
+
+    // Se cambia la tag del bloque
+    nuevoBloque.tag = tag;
+
+    // Se actualiza la lista de bloques
+    setBlocks((values: any) =>
+      values.map((value: any, i: any) => (i === id ? nuevoBloque : value))
+    );
+  };
+
   return (
     <div className="fixed top-0 left-0 z-10 flex flex-row justify-center w-screen py-2 space-x-2 text-xl text-white bg-green-500 shadow-xl ">
       {/*SECTION  Estilo  */}
@@ -41,12 +60,12 @@ const Toolbar = ({ BloqueActual, setBlocks, Blocks }: ToolbarProps) => {
         <option value="H1" selected>
           Encabezado 1
         </option>
-        <option value="H2" className="text-xl">
-          Encabezado 2
-        </option>
-        <option value="H3" className="text-lg">
-          Encabezado 3
-        </option>
+        <option value="H2">Encabezado 2</option>
+        <option value="H3">Encabezado 3</option>
+        <option value="H4">Encabezado 4</option>
+        <option value="H5">Encabezado 5</option>
+        <option value="H6">Encabezado 6</option>
+        <option value="p">Normal</option>
       </select>
       {/* !SECTION ESTILO */}
 
@@ -82,7 +101,7 @@ const Toolbar = ({ BloqueActual, setBlocks, Blocks }: ToolbarProps) => {
           <i
             className="px-1 transition-all rounded-sm cursor-pointer bi bi-type-bold hover:bg-green-700"
             onClick={() =>
-              actualizarBloque(
+              actualizarBloqueClassName(
                 BloqueActual.current.id,
                 "className",
                 "font-bold"
@@ -94,7 +113,11 @@ const Toolbar = ({ BloqueActual, setBlocks, Blocks }: ToolbarProps) => {
           <i
             className="px-1 transition-all rounded-sm cursor-pointer bi bi-type-italic hover:bg-green-700"
             onClick={() =>
-              actualizarBloque(BloqueActual.current.id, "className", "italic")
+              actualizarBloqueClassName(
+                BloqueActual.current.id,
+                "className",
+                "italic"
+              )
             }
           ></i>
         </li>
@@ -102,7 +125,7 @@ const Toolbar = ({ BloqueActual, setBlocks, Blocks }: ToolbarProps) => {
           <i
             className="px-1 transition-all rounded-sm cursor-pointer bi bi-type-underline hover:bg-green-700"
             onClick={() =>
-              actualizarBloque(
+              actualizarBloqueClassName(
                 BloqueActual.current.id,
                 "className",
                 "underline"
@@ -121,7 +144,7 @@ const Toolbar = ({ BloqueActual, setBlocks, Blocks }: ToolbarProps) => {
           <i
             className="px-1 transition-all rounded-sm cursor-pointer bi bi-text-left hover:bg-green-700"
             onClick={() =>
-              actualizarBloque(
+              actualizarBloqueClassName(
                 BloqueActual.current.id,
                 "className",
                 "text-left"
@@ -133,7 +156,7 @@ const Toolbar = ({ BloqueActual, setBlocks, Blocks }: ToolbarProps) => {
           <i
             className="px-1 transition-all rounded-sm cursor-pointer bi bi-text-center hover:bg-green-700"
             onClick={() =>
-              actualizarBloque(
+              actualizarBloqueClassName(
                 BloqueActual.current.id,
                 "className",
                 "text-center"
@@ -145,7 +168,7 @@ const Toolbar = ({ BloqueActual, setBlocks, Blocks }: ToolbarProps) => {
           <i
             className="px-1 transition-all rounded-sm cursor-pointer bi bi-text-right hover:bg-green-700"
             onClick={() =>
-              actualizarBloque(
+              actualizarBloqueClassName(
                 BloqueActual.current.id,
                 "className",
                 "text-right"
@@ -157,7 +180,7 @@ const Toolbar = ({ BloqueActual, setBlocks, Blocks }: ToolbarProps) => {
           <i
             className="px-1 transition-all rounded-sm cursor-pointer bi bi-justify hover:bg-green-700"
             onClick={() =>
-              actualizarBloque(
+              actualizarBloqueClassName(
                 BloqueActual.current.id,
                 "className",
                 "text-justify"
@@ -182,7 +205,7 @@ const Toolbar = ({ BloqueActual, setBlocks, Blocks }: ToolbarProps) => {
           <i
             className="px-1 transition-all rounded-sm cursor-pointer bi bi-list-ol hover:bg-green-700"
             onClick={() => {
-              actualizarBloque(BloqueActual.current.id, "tag", "li");
+              ActualizarBloqueEtiqueta(BloqueActual.current.id, "li");
             }}
           ></i>
         </li>

@@ -104,19 +104,24 @@ const Elemento = ({
   id,
 }: ElementoProps) => {
   const handleChangeBloqueActual = () => {
-    alert("estas delicioso");
-    console.log(id);
-
     BloqueActual.current = Blocks[id];
   };
 
   if (tag === "p")
     return (
       <p ref={innerRef} onClick={() => handleChangeBloqueActual()}>
+        {/* {BloqueActual.current.id === id && (
+          <i className="bi bi-three-dots-vertical"></i>
+        )} */}
         {contenido}
       </p>
     );
-  if (tag === "li") return <li ref={innerRef}>{contenido}</li>;
+  if (tag === "li")
+    return (
+      <li ref={innerRef} onClick={() => handleChangeBloqueActual()}>
+        {contenido}
+      </li>
+    );
   if (tag === "h1") return <h1 ref={innerRef}>{contenido}</h1>;
   if (tag === "h2") return <h2 ref={innerRef}>{contenido}</h2>;
   if (tag === "h3") return <h3 ref={innerRef}>{contenido}</h3>;
